@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd">
+
+	<sfdc:config name="Salesforce" username="trafacz@confluex.com" password="Wioska@123" securityToken="m697ho2iuE0sgdCahh4sNWq11" doc:name="Salesforce">
+        <sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </sfdc:config>
+    <data-mapper:config name="datamapper_grf" transformationGraphPath="datamapper.grf" doc:name="DataMapper"/>
+    
+    <flow name="Contacts_to_SFDC" doc:name="Contacts_to_SFDC" doc:description="Upload a csv file of contact information into Salesforce as new contacts.">
+        <file:inbound-endpoint path="src/test/resources/input" moveToDirectory="src/test/resources/output" pollingFrequency="10000" responseTimeout="10000" doc:name="File Input"/>
+        <data-mapper:transform config-ref="datamapper_grf" doc:name="DataMapper"/>
+        <logger message="After mapping, size to be sent to SF is #[message.payload.size()]"
+        	level="INFO" category="com.confluex.Contacts_to_SFDC" doc:name="Payload Logger" />
+        <set-variable variableName="batchData"  value="#[payload]" doc:name="save batch data"/>
+        <sfdc:upsert-bulk config-ref="Salesforce"  doc:name="upsert bulk" type="Contact" externalIdFieldName="Email">
+            <sfdc:objects ref="#[payload]"/>
+    	</sfdc:upsert-bulk>
+    	<logger message="After sfdc:upsert-bulk, batchInfo is #[message.payload]"
+        	level="INFO" category="com.confluex.Contacts_to_SFDC" doc:name="Payload Logger" />
+    	<set-payload doc:name="set payload for sending to check results"
+    		value="#[groovy: retPayload = [:];
+    			retPayload.put('batchData',flowVars['batchData']);
+    			retPayload.put('batchInfo',payload);
+    			return retPayload;]" />
+    	<set-property propertyName="retryCount"  value="#[groovy: int retryCount = 0; return retryCount;]" />
+    	<vm:outbound-endpoint exchange-pattern="one-way" path="check-sf-results" doc:name="check-sf-results"/>
+    </flow>
+    
+    <flow name="Check_Batch_Results" doc:name="Check_Update_Results" doc:description="Check upload at Salesforce">
+    	<vm:inbound-endpoint exchange-pattern="one-way" path="check-sf-results" doc:name="check-sf-results"/>
+    	<set-variable variableName="originalPayload" value="#[message.payload]" doc:name="Retain original payload for retries"/>
+    	<set-variable variableName="batchData"  value="#[payload.batchData]" doc:name="Get request data for matching with results"/>
+    	<set-payload value="#[payload.batchInfo]" doc:name="Set payload to batch info to use by sfdc:batch-result "/>
+    	<logger message="Before sfdc:batch-result, payload is #[message.payload], retryCount = #[message.inboundProperties['retryCount']]"
+        	level="DEBUG" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+    	<sfdc:batch-result config-ref="Salesforce"  doc:name="batch result"  >
+        	<sfdc:batch-info ref="#[payload]"/>
+    	</sfdc:batch-result>
+    	<logger message="After sfdc:batch-result, payload is #[message.payload]"
+        	level="INFO" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+    	<set-payload value="#[payload.result]" doc:name="Set Payload"/>
+    	<set-variable variableName="batchResult" value="#[groovy: return[];]" doc:name="Set empty batchResult array"/>
+    	<foreach collection="#[payload]"  doc:name="For each result record">
+			<logger message="For earch resultset row Payload is #[message.payload], counter is #[flowVars['counter']]"
+				level="DEBUG" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+			<flow-ref name="TransformUpdateResult" doc:name="transform update results "/>
+			<set-payload doc:name="combine request data and results"
+				value="#[groovy: retPayload = flowVars['batchData'][counter-1];
+					retPayload.putAll(payload);
+					return retPayload;]" />
+			<logger message="After combining request data and result, payload is #[message.payload], counter is #[flowVars['counter']]"
+				level="INFO" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+			<set-variable variableName="batchResult" doc:name="Add payload to batchResult array"
+				value="#[groovy: batchResult = flowVars['batchResult'];
+					batchResult.add(payload);
+					return batchResult;]" />
+		</foreach>
+		<set-payload value="#[flowVars['batchResult']]" doc:name="Set Payload to batchResult"/>
+    	<logger message="After accumulating batchResult, size to Update is #[flowVars['batchResult'].size()], payload is #[message.payload]"
+        	level="INFO" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+        
+        <choice-exception-strategy doc:name="Choice Exception Strategy">
+        	<catch-exception-strategy when="exception.causedBy(com.sforce.async.AsyncApiException)" doc:name="SF Connector error">
+<!--         	[AsyncApiException  exceptionCode='InvalidBatch' exceptionMessage='Batch not completed'] -->
+        		<logger message="SFORCE EXCEPTION - RETRYING PROCESSING, retryCount = #[message.inboundProperties['retryCount']]"
+        			level="ERROR" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+        		<set-payload value="#[flowVars['originalPayload']]"/>
+        		<set-variable variableName="retryCount" value="#[message.inboundProperties['retryCount']]" doc:name="get Retry Count"/>
+        		<set-property propertyName="retryCount" value="#[groovy: int retryCount = flowVars['retryCount']; retryCount++; return retryCount;]" doc:name="Add to Retry Count"/>
+        		<vm:outbound-endpoint exchange-pattern="one-way" path="check-sf-results" doc:name="check-sf-results"/>
+        	</catch-exception-strategy>
+        	<catch-exception-strategy  doc:name="Unexcpected errors">
+        		<logger message="UNEXPECTED EXCEPTION - #[exception.getSummaryMessage()]"
+        			level="ERROR" category="com.confluex.Check_Update_Results" doc:name="Payload Logger" />
+<!--         	<flow-ref name="SendExceptionNotification" doc:name="Send Exception Notification"/> -->
+        	</catch-exception-strategy>
+    	</choice-exception-strategy>
+    </flow>
+	
+<sub-flow name="TransformUpdateResult" doc:name="TransformUpdateResult" doc:description="parse and transform results">
+    
+	<set-variable variableName="success" value="#[payload.success]" doc:name="Set success"/>
+	<choice doc:name="Choice">
+		<when expression="#[flowVars['success'] == false]">
+			<set-variable variableName="id" value="0" doc:name="Set id to 0 to indicate an error"/>
+        </when>
+        <otherwise>
+        	<set-variable variableName="id" value="#[payload.id]" doc:name="Set id"/>
+        </otherwise>
+    </choice>
+	<object-to-string-transformer doc:name="Object to String"/>
+	<set-variable variableName="response" value="#[payload.substring(0,(payload.length()>2045)?2044:payload.length()-1)]" doc:name="Set response"/>
+    <logger message="In TransformUpdateResult, id = #[flowVars['id']], success = #[flowVars['success']], response = #[flowVars['response']]"
+        level="DEBUG" category="com.confluex.TransformUpdateResult" doc:name="Payload Logger" />
+
+	<set-payload doc:name="set payload to results hashmap"
+		value="#[groovy: retPayload = [:];
+			retPayload.put('success',flowVars['success']);
+			retPayload.put('id',flowVars['id']);
+			retPayload.put('response',flowVars['response']);
+			return retPayload;]" />
+        
+</sub-flow>
+    	
+</mule>

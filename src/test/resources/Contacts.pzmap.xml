@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- DTD can be pulled from the Jar or over the web-->
+<!--<DOCTYPE PZMAP SYSTEM	"flatpack.dtd" >-->
+<!DOCTYPE PZMAP SYSTEM	"http://flatpack.sourceforge.net/flatpack.dtd" >
+<PZMAP>
+	<COLUMN name="FirstName" />
+	<COLUMN name="LastName" />
+	<COLUMN name="Phone" />
+	<COLUMN name="Email" />
+</PZMAP>

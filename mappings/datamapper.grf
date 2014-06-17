@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="janet" created="Thu Mar 28 15:15:47 PDT 2013" guiVersion="3.3.2" id="1364574408268" licenseCode="CLPXDMULES37812333BY" licenseType="Commercial" modified="Thu Mar 28 15:15:47 PDT 2013" modifiedBy="janet" name="datamapper_grf" preview-file="/Users/janet/Desktop/contacts.csv" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __referenceCounter="1" __sourcePath="{}/Contact" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _type="Output" id="e72eae93-0fed-4780-be58-5cb0900cc380">
+<Record fieldDelimiter="|" name="Contact" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/Contact/Phone" containerType="SINGLE" label="Phone" name="Phone" type="string"/>
+<Field __sourcePath="{}/Contact/EmailBouncedDate" containerType="SINGLE" label="EmailBouncedDate" name="EmailBouncedDate" type="date"/>
+<Field __sourcePath="{}/Contact/OwnerId" containerType="SINGLE" label="OwnerId" name="OwnerId" type="string"/>
+<Field __sourcePath="{}/Contact/LastModifiedDate" containerType="SINGLE" label="LastModifiedDate" name="LastModifiedDate" type="date"/>
+<Field __sourcePath="{}/Contact/LeadSource" containerType="SINGLE" label="LeadSource" name="LeadSource" type="string"/>
+<Field __sourcePath="{}/Contact/LastName" containerType="SINGLE" label="LastName" name="LastName" type="string"/>
+<Field __sourcePath="{}/Contact/OtherPostalCode" containerType="SINGLE" label="OtherPostalCode" name="OtherPostalCode" type="string"/>
+<Field __sourcePath="{}/Contact/HomePhone" containerType="SINGLE" label="HomePhone" name="HomePhone" type="string"/>
+<Field __sourcePath="{}/Contact/LastActivityDate" containerType="SINGLE" label="LastActivityDate" name="LastActivityDate" type="date"/>
+<Field __sourcePath="{}/Contact/LastCURequestDate" containerType="SINGLE" label="LastCURequestDate" name="LastCURequestDate" type="date"/>
+<Field __sourcePath="{}/Contact/OtherPhone" containerType="SINGLE" label="OtherPhone" name="OtherPhone" type="string"/>
+<Field __sourcePath="{}/Contact/MailingState" containerType="SINGLE" label="MailingState" name="MailingState" type="string"/>
+<Field __sourcePath="{}/Contact/MailingCity" containerType="SINGLE" label="MailingCity" name="MailingCity" type="string"/>
+<Field __sourcePath="{}/Contact/MailingStreet" containerType="SINGLE" label="MailingStreet" name="MailingStreet" type="string"/>
+<Field __sourcePath="{}/Contact/SystemModstamp" containerType="SINGLE" label="SystemModstamp" name="SystemModstamp" type="date"/>
+<Field __sourcePath="{}/Contact/MailingCountry" containerType="SINGLE" label="MailingCountry" name="MailingCountry" type="string"/>
+<Field __sourcePath="{}/Contact/MailingPostalCode" containerType="SINGLE" label="MailingPostalCode" name="MailingPostalCode" type="string"/>
+<Field __sourcePath="{}/Contact/Birthdate" containerType="SINGLE" label="Birthdate" name="Birthdate" type="date"/>
+<Field __sourcePath="{}/Contact/FirstName" containerType="SINGLE" label="FirstName" name="FirstName" type="string"/>
+<Field __sourcePath="{}/Contact/OtherStreet" containerType="SINGLE" label="OtherStreet" name="OtherStreet" type="string"/>
+<Field __sourcePath="{}/Contact/Department" containerType="SINGLE" label="Department" name="Department" type="string"/>
+<Field __sourcePath="{}/Contact/MobilePhone" containerType="SINGLE" label="MobilePhone" name="MobilePhone" type="string"/>
+<Field __sourcePath="{}/Contact/AssistantName" containerType="SINGLE" label="AssistantName" name="AssistantName" type="string"/>
+<Field __sourcePath="{}/Contact/Description" containerType="SINGLE" label="Description" name="Description" type="string"/>
+<Field __sourcePath="{}/Contact/LastModifiedById" containerType="SINGLE" label="LastModifiedById" name="LastModifiedById" type="string"/>
+<Field __sourcePath="{}/Contact/ReportsToId" containerType="SINGLE" label="ReportsToId" name="ReportsToId" type="string"/>
+<Field __sourcePath="{}/Contact/Fax" containerType="SINGLE" label="Fax" name="Fax" type="string"/>
+<Field __sourcePath="{}/Contact/AssistantPhone" containerType="SINGLE" label="AssistantPhone" name="AssistantPhone" type="string"/>
+<Field __sourcePath="{}/Contact/OtherCity" containerType="SINGLE" label="OtherCity" name="OtherCity" type="string"/>
+<Field __sourcePath="{}/Contact/Salutation" containerType="SINGLE" label="Salutation" name="Salutation" type="string"/>
+<Field __sourcePath="{}/Contact/LastCUUpdateDate" containerType="SINGLE" label="LastCUUpdateDate" name="LastCUUpdateDate" type="date"/>
+<Field __sourcePath="{}/Contact/Title" containerType="SINGLE" label="Title" name="Title" type="string"/>
+<Field __sourcePath="{}/Contact/MasterRecordId" containerType="SINGLE" label="MasterRecordId" name="MasterRecordId" type="string"/>
+<Field __sourcePath="{}/Contact/Name" containerType="SINGLE" label="Name" name="Name" type="string"/>
+<Field __sourcePath="{}/Contact/JigsawContactId" containerType="SINGLE" label="JigsawContactId" name="JigsawContactId" type="string"/>
+<Field __sourcePath="{}/Contact/EmailBouncedReason" containerType="SINGLE" label="EmailBouncedReason" name="EmailBouncedReason" type="string"/>
+<Field __sourcePath="{}/Contact/Email" containerType="SINGLE" label="Email" name="Email" type="string"/>
+<Field __sourcePath="{}/Contact/OtherCountry" containerType="SINGLE" label="OtherCountry" name="OtherCountry" type="string"/>
+<Field __sourcePath="{}/Contact/AccountId" containerType="SINGLE" label="AccountId" name="AccountId" type="string"/>
+<Field __sourcePath="{}/Contact/CreatedById" containerType="SINGLE" label="CreatedById" name="CreatedById" type="string"/>
+<Field __sourcePath="{}/Contact/CreatedDate" containerType="SINGLE" label="CreatedDate" name="CreatedDate" type="date"/>
+<Field __sourcePath="{}/Contact/OtherState" containerType="SINGLE" label="OtherState" name="OtherState" type="string"/>
+<Field __sourcePath="{}/Contact/IsDeleted" containerType="SINGLE" label="IsDeleted" name="IsDeleted" type="boolean"/>
+<Field __sourcePath="{}/Contact/Id" containerType="SINGLE" label="Id" name="Id" type="string"/>
+</Record>
+</Metadata>
+<Metadata __referenceCounter="1" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _type="Input" id="1538b516-1f12-4e44-a450-c8f34b41137b">
+<Record fieldDelimiter="," name="contacts" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field containerType="SINGLE" label="FirstName" name="FirstName" size="10" type="string"/>
+<Field containerType="SINGLE" label="LastName" name="LastName" size="10" type="string"/>
+<Field containerType="SINGLE" label="Phone" name="Phone" size="10" type="string"/>
+<Field containerType="SINGLE" eofAsDelimiter="true" label="Email" name="Email" size="10" type="string"/>
+<Field __artificialType="_id" auto_filling="global_row_count" name="__id" type="long"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="CSV READER" guiX="20" guiY="20" id="DATA_READER0" quotedStrings="true" skipRows="1" trim="true" type="DATA_READER">
+<attr name="_data_format"><![CDATA[CSV]]></attr>
+<attr name="__dataSourceDefinition"><![CDATA[/Users/janet/Desktop/contacts.csv]]></attr>
+</Node>
+<Node enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:collection clover:name="Contact" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping">
+  <item clover:inPort="0">
+    <Phone>$0.Phone</Phone>
+    <EmailBouncedDate>$0.EmailBouncedDate</EmailBouncedDate>
+    <OwnerId>$0.OwnerId</OwnerId>
+    <LastModifiedDate>$0.LastModifiedDate</LastModifiedDate>
+    <LeadSource>$0.LeadSource</LeadSource>
+    <LastName>$0.LastName</LastName>
+    <OtherPostalCode>$0.OtherPostalCode</OtherPostalCode>
+    <HomePhone>$0.HomePhone</HomePhone>
+    <LastActivityDate>$0.LastActivityDate</LastActivityDate>
+    <LastCURequestDate>$0.LastCURequestDate</LastCURequestDate>
+    <OtherPhone>$0.OtherPhone</OtherPhone>
+    <MailingState>$0.MailingState</MailingState>
+    <MailingCity>$0.MailingCity</MailingCity>
+    <MailingStreet>$0.MailingStreet</MailingStreet>
+    <SystemModstamp>$0.SystemModstamp</SystemModstamp>
+    <MailingCountry>$0.MailingCountry</MailingCountry>
+    <MailingPostalCode>$0.MailingPostalCode</MailingPostalCode>
+    <Birthdate>$0.Birthdate</Birthdate>
+    <FirstName>$0.FirstName</FirstName>
+    <OtherStreet>$0.OtherStreet</OtherStreet>
+    <Department>$0.Department</Department>
+    <MobilePhone>$0.MobilePhone</MobilePhone>
+    <AssistantName>$0.AssistantName</AssistantName>
+    <Description>$0.Description</Description>
+    <LastModifiedById>$0.LastModifiedById</LastModifiedById>
+    <ReportsToId>$0.ReportsToId</ReportsToId>
+    <Fax>$0.Fax</Fax>
+    <AssistantPhone>$0.AssistantPhone</AssistantPhone>
+    <OtherCity>$0.OtherCity</OtherCity>
+    <Salutation>$0.Salutation</Salutation>
+    <LastCUUpdateDate>$0.LastCUUpdateDate</LastCUUpdateDate>
+    <Title>$0.Title</Title>
+    <MasterRecordId>$0.MasterRecordId</MasterRecordId>
+    <Name>$0.Name</Name>
+    <JigsawContactId>$0.JigsawContactId</JigsawContactId>
+    <EmailBouncedReason>$0.EmailBouncedReason</EmailBouncedReason>
+    <Email>$0.Email</Email>
+    <OtherCountry>$0.OtherCountry</OtherCountry>
+    <AccountId>$0.AccountId</AccountId>
+    <CreatedById>$0.CreatedById</CreatedById>
+    <CreatedDate>$0.CreatedDate</CreatedDate>
+    <OtherState>$0.OtherState</OtherState>
+    <IsDeleted>$0.IsDeleted</IsDeleted>
+    <Id>$0.Id</Id>
+  </item>
+</clover:collection>]]></attr>
+<attr name="__typeName"><![CDATA[Contact]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+<attr name="__operationName"><![CDATA[http://www.mulesoft.org/schema/mule/sfdc/create]]></attr>
+<attr name="__connectorName"><![CDATA[Salesforce]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'contacts' -&gt; 'Contact'" guiX="460" guiY="20" id="REFORMAT0" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = (isnull(input.__id) ? null : num2str(input.__id));
+//END -> DO NOT REMOVE
+output.FirstName = input.FirstName;
+output.LastName = input.LastName;
+output.Phone = input.Phone;
+output.Email = input.Email;
+]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="DATA_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="1538b516-1f12-4e44-a450-c8f34b41137b" outPort="Port 0 (output)" toNode="REFORMAT0:0"/>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="e72eae93-0fed-4780-be58-5cb0900cc380" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+</Phase>
+</Graph>
