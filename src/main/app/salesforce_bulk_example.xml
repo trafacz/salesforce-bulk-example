@@ -13,10 +13,10 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd">
 
-	<sfdc:config name="Salesforce" username="trafacz@confluex.com" password="Wioska@123" securityToken="m697ho2iuE0sgdCahh4sNWq11" doc:name="Salesforce">
-        <sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
-    </sfdc:config>
-    <data-mapper:config name="datamapper_grf" transformationGraphPath="datamapper.grf" doc:name="DataMapper"/>
+	<sfdc:config name="Salesforce" username="trafacz@confluex.com" password="pwd" securityToken="token" doc:name="Salesforce">
+		<sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+	</sfdc:config>
+	<data-mapper:config name="datamapper_grf" transformationGraphPath="datamapper.grf" doc:name="DataMapper"/>
     
     <flow name="Contacts_to_SFDC" doc:name="Contacts_to_SFDC" doc:description="Upload a csv file of contact information into Salesforce as new contacts.">
         <file:inbound-endpoint path="src/test/resources/input" moveToDirectory="src/test/resources/output" pollingFrequency="10000" responseTimeout="10000" doc:name="File Input"/>
